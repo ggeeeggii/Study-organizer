@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المنظم الدراسي الأسبوعي — بداية جديدة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky:#7fd3e0;
+    --sea:#2a6f7f;
+    --ink:#245968;
+    --sun:#ffe08a;
+    --coral:#ff9a7a;
+    --coral-bg:#ffe6de;
+    --peach:#ffdcb8;
+    --mint:#c8f0dd;
+    --aqua:#b7e8ee;
+    --sand:#fdf3e2;
+    --skylight:#dcf0fb;
+    --sunlight:#fff1b8;
+    --white:#ffffff;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Tajawal', sans-serif;
+    background: linear-gradient(180deg,#e6f6f7 0%, #f2f9ef 45%, #fdf6e6 100%);
+    color:var(--ink);
+    line-height:1.7;
+    padding-bottom:60px;
+  }
+  .display{ font-family:'Lalezar', sans-serif; letter-spacing:.5px; }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    overflow:hidden;
+    background: linear-gradient(160deg, #6bc4d6 0%, #8fd9c9 55%, #f7e2b0 100%);
+    padding:48px 20px 90px;
+    text-align:center;
+    color:#fff;
+  }
+  .hero h1{
+    position:relative;
+    font-size:clamp(30px,6vw,48px);
+    margin-top:10px;
+    text-shadow:0 3px 10px rgba(0,0,0,.15);
+  }
+  .hero p.sub{
+    position:relative;
+    margin-top:10px;
+    font-weight:500;
+    opacity:.95;
+    font-size:16px;
+  }
+  .chips{
+    position:relative;
+    display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+    margin-top:22px;
+  }
+  .chip{
+    background:rgba(255,255,255,.25);
+    backdrop-filter:blur(4px);
+    border:1px solid rgba(255,255,255,.5);
+    padding:8px 16px;
+    border-radius:30px;
+    font-size:14px;
+    font-weight:700;
+  }
+  .wave-bottom{
+    position:absolute; bottom:-1px; left:0; width:100%; line-height:0;
+  }
+  .wave-bottom svg{ width:100%; height:70px; display:block; }
+
+  /* ===== bottle note (CS101) ===== */
+  .bottle{
+    max-width:640px;
+    margin:-50px auto 40px;
+    background:#fff;
+    border-radius:22px;
+    padding:20px 24px;
+    box-shadow:0 14px 30px rgba(11,79,108,.15);
+    display:flex; gap:14px; align-items:flex-start;
+    position:relative;
+    z-index:2;
+    border:2px dashed var(--sea);
+  }
+  .bottle .icon{ font-size:30px; }
+  .bottle strong{ color:var(--coral); }
+
+  /* ===== CONTAINER ===== */
+  .container{ max-width:720px; margin:0 auto; padding:0 18px; }
+
+  section.day{
+    border-radius:26px 26px 0 0;
+    padding:26px 24px 40px;
+    margin-top:26px;
+    position:relative;
+    box-shadow:0 10px 24px rgba(11,79,108,.08);
+  }
+  .scallop{
+    height:22px;
+    background-repeat:repeat-x;
+    background-size:24px 22px;
+    background-position:top center;
+    border-radius:0 0 4px 4px;
+  }
+  .day-head{
+    display:flex; align-items:center; gap:12px;
+    margin-bottom:14px;
+  }
+  .day-head .emoji{ font-size:32px; }
+  .day-head h2{ font-family:'Lalezar',sans-serif; font-size:26px; color:var(--sea); }
+  .day-head .tag{
+    margin-right:auto;
+    font-size:12px;
+    background:rgba(11,79,108,.1);
+    color:var(--sea);
+    padding:4px 12px;
+    border-radius:20px;
+    font-weight:700;
+  }
+  .lectures{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .lecture-chip{
+    background:#fff;
+    border-radius:14px;
+    padding:8px 14px;
+    font-size:13.5px;
+    font-weight:700;
+    color:var(--sea);
+    box-shadow:0 3px 8px rgba(11,79,108,.08);
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline{ position:relative; margin-bottom:16px; padding-right:18px; }
+  .timeline::before{
+    content:"";
+    position:absolute; right:6px; top:6px; bottom:6px;
+    width:2px;
+    background:rgba(11,79,108,.2);
+  }
+  .tl-item{
+    position:relative;
+    display:flex; align-items:flex-start; gap:12px;
+    margin-bottom:10px;
+  }
+  .tl-item::before{
+    content:"";
+    position:absolute; right:-18px; top:6px;
+    width:10px; height:10px;
+    border-radius:50%;
+    background:var(--sea);
+    border:2px solid #fff;
+  }
+  .tl-item.lecture::before{ background:var(--coral); width:13px; height:13px; right:-19.5px; top:4px; }
+  .tl-time{
+    min-width:108px;
+    font-size:12.5px;
+    font-weight:800;
+    color:var(--sea);
+    padding-top:2px;
+    flex-shrink:0;
+  }
+  .tl-body{
+    flex:1;
+    background:rgba(255,255,255,.6);
+    border-radius:14px;
+    padding:8px 14px;
+  }
+  .tl-item.lecture .tl-body{
+    background:#fff;
+    box-shadow:0 3px 8px rgba(11,79,108,.1);
+    font-weight:800;
+    color:var(--sea);
+  }
+  .tl-item.lecture .tl-time{ color:var(--coral); }
+  .tl-body span.label{ font-weight:800; }
+  .tl-body ul{ padding-right:16px; font-size:14px; margin-top:4px; }
+  .tl-body ul li{ margin-bottom:2px; }
+  .block{
+    background:rgba(255,255,255,.55);
+    border-radius:16px;
+    padding:12px 16px;
+    margin-bottom:10px;
+  }
+  .block h4{
+    font-size:14px;
+    color:var(--sea);
+    margin-bottom:6px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .block ul{ padding-right:18px; font-size:14.5px; }
+  .block ul li{ margin-bottom:3px; }
+  .block p{ font-size:14.5px; }
+  .total{
+    font-size:13px;
+    font-weight:700;
+    color:var(--coral);
+    margin-top:4px;
+  }
+
+  .day-sunday{ background:var(--peach); }
+  .day-monday{ background:var(--mint); }
+  .day-tuesday{ background:var(--coral-bg); }
+  .day-wednesday{ background:var(--sand); }
+  .day-thursday{ background:var(--aqua); }
+  .day-friday{ background:var(--skylight); }
+  .day-saturday{ background:var(--sunlight); }
+
+  .scallop-sunday{ background-image: radial-gradient(circle at 12px 0, transparent 11px, var(--peach) 12px); }
+  .scallop-monday{ background-image: radial-gradient(circle at 12px 0, transparent 11px, var(--mint) 12px); }
+  .scallop-tuesday{ background-image: radial-gradient(circle at 12px 0, transparent 11px, var(--coral-bg) 12px); }
+  .scallop-wednesday{ background-image: radial-gradient(circle at 12px 0, transparent 11px, var(--sand) 12px); }
+  .scallop-thursday{ background-image: radial-gradient(circle at 12px 0, transparent 11px, var(--aqua) 12px); }
+  .scallop-friday{ background-image: radial-gradient(circle at 12px 0, transparent 11px, var(--skylight) 12px); }
+  .scallop-saturday{ background-image: radial-gradient(circle at 12px 0, transparent 11px, var(--sunlight) 12px); }
+
+  /* ===== rule banner ===== */
+  .rule-banner{
+    margin-top:30px;
+    background:var(--sea);
+    color:#fff;
+    border-radius:22px;
+    padding:26px 22px;
+    text-align:center;
+  }
+  .rule-banner h3{ font-family:'Lalezar',sans-serif; font-size:22px; margin-bottom:10px; color:var(--sun); }
+  .rule-banner .flow{
+    font-weight:700; font-size:15px; margin-bottom:14px;
+    display:flex; flex-wrap:wrap; justify-content:center; gap:8px; align-items:center;
+  }
+  .rule-banner .flow span{ background:rgba(255,255,255,.12); padding:6px 12px; border-radius:20px; }
+  .rule-banner ul{ list-style:none; font-size:14px; text-align:right; max-width:480px; margin:0 auto; }
+  .rule-banner ul li{ margin-bottom:6px; padding-right:20px; position:relative; }
+  .rule-banner ul li::before{ content:"🌊"; position:absolute; right:0; }
+
+  /* ===== self assessment ===== */
+  .assess{
+    margin-top:30px;
+    background:#fff;
+    border-radius:22px;
+    padding:24px;
+    box-shadow:0 10px 24px rgba(11,79,108,.08);
+  }
+  .assess h3{ font-family:'Lalezar',sans-serif; color:var(--sea); font-size:22px; margin-bottom:16px; text-align:center; }
+  .assess table{ width:100%; border-collapse:collapse; font-size:14.5px; }
+  .assess td{ padding:10px 6px; border-bottom:1px solid #eef4f6; }
+  .assess td:first-child{ font-weight:700; color:var(--sea); }
+  .assess input[type=text]{
+    width:70px;
+    border:2px solid var(--aqua);
+    border-radius:10px;
+    padding:5px 8px;
+    text-align:center;
+    font-family:inherit;
+  }
+  .improve{
+    margin-top:16px;
+    background:var(--sand);
+    border-radius:14px;
+    padding:14px;
+    font-weight:700;
+    font-size:14px;
+  }
+  .improve input{
+    width:100%;
+    margin-top:8px;
+    border:none;
+    border-bottom:2px dashed var(--coral);
+    background:transparent;
+    padding:6px 4px;
+    font-family:inherit;
+    font-size:14px;
+  }
+
+  /* ===== fresh start ===== */
+  .fresh{
+    margin-top:30px;
+    background: linear-gradient(160deg, #fff 0%, var(--peach) 140%);
+    border-radius:26px;
+    padding:30px 24px;
+    text-align:center;
+  }
+  .fresh h3{ font-family:'Lalezar',sans-serif; font-size:28px; color:var(--coral); margin-bottom:18px; }
+  .fresh ol{ text-align:right; max-width:520px; margin:0 auto; list-style:none; counter-reset:item; }
+  .fresh ol li{
+    counter-increment:item;
+    background:rgba(255,255,255,.7);
+    border-radius:14px;
+    padding:10px 14px;
+    margin-bottom:8px;
+    font-size:14.5px;
+    display:flex; gap:10px; align-items:flex-start;
+  }
+  .fresh ol li::before{
+    content:counter(item);
+    background:var(--sea);
+    color:#fff;
+    width:24px; height:24px; min-width:24px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:700;
+  }
+  .footnote{
+    text-align:center;
+    font-size:13px;
+    color:var(--sea);
+    margin-top:24px;
+    opacity:.8;
+  }
+
+  /* ===== TODAY HIGHLIGHT ===== */
+  section.day.today{
+    box-shadow:0 0 0 4px var(--coral), 0 14px 30px rgba(11,79,108,.18);
+  }
+  section.day.today .day-head .tag{
+    background:var(--coral);
+    color:#fff;
+  }
+  section.day.today .day-head h2::after{
+    content:"📍 اليوم";
+    display:inline-block;
+    font-family:'Tajawal',sans-serif;
+    font-size:11px;
+    font-weight:800;
+    color:var(--coral);
+    margin-right:8px;
+    vertical-align:middle;
+  }
+</style>
+</head>
+<body>
+
+  <div class="hero">
+    <h1>المنظم الدراسي الأسبوعي</h1>
+    <p class="sub">بداية جديدة 🤍 — من الأحد إلى الخميس</p>
+    <div class="chips">
+      <span class="chip">المستوى الثاني</span>
+      <span class="chip">12 ساعة معتمدة</span>
+      <span class="chip">هدف الترم: بداية نظيفة</span>
+    </div>
+    <div class="wave-bottom">
+      <svg viewBox="0 0 500 60" preserveAspectRatio="none"><path d="M0,30 C150,60 350,0 500,30 L500,60 L0,60 Z" fill="#e6f6f7"></path></svg>
+    </div>
+  </div>
+
+  <div class="bottle">
+    <div class="icon">🍾</div>
+    <div>
+      <strong>CS101 — مقدمة في الحاسب الآلي:</strong> المقرر مسجل، لكن موعد المحاضرة لم يُحدد حتى الآن، لذلك بقي خارج الجدول مؤقتًا (TBD).
+      عند تحديد الموعد، يُضاف تلقائيًا في يومه ووقته دون تغيير بقية الجدول.
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- الأحد -->
+    <section class="day day-sunday">
+      <div class="day-head"><span class="emoji">🌅</span><h2>الأحد</h2><span class="tag">IC104 + عملي PHYS100</span></div>
+      <div class="timeline">
+        <div class="tl-item lecture"><span class="tl-time">10:00 – 10:50 ص</span><div class="tl-body">🧪 عملي PHYS100 — الشعبة 1</div></div>
+        <div class="tl-item lecture"><span class="tl-time">12:00 – 1:40 م</span><div class="tl-body">📖 IC104 — أسس النظام السياسي في الإسلام</div></div>
+        <div class="tl-item"><span class="tl-time">1:40 – 3:10</span><div class="tl-body">🚗 طريق الرجعة + راحة</div></div>
+        <div class="tl-item"><span class="tl-time">3:10 – 4:10</span><div class="tl-body">📚 مراجعة IC104 + تثبيت ملاحظات PHYS100</div></div>
+        <div class="tl-item"><span class="tl-time">مساءً</span><div class="tl-body">✅ ترتيب الواجبات وتجهيز يوم الاثنين</div></div>
+        <div class="tl-item"><span class="tl-time">قبل النوم</span><div class="tl-body">🌙 نوم مريح</div></div>
+      </div>
+    </section>
+    <div class="scallop scallop-sunday"></div>
+
+    <!-- الاثنين -->
+    <section class="day day-monday">
+      <div class="day-head"><span class="emoji">🌊</span><h2>الاثنين</h2><span class="tag">يوم دراسة هادئ</span></div>
+      <div class="block"><h4>📚 المذاكرة</h4><ul><li>مراجعة خفيفة لـ PHYS100 وحل مسائل قصيرة.</li><li>مراجعة IC104 وتلخيص النقاط المهمة.</li><li>تجهيز بسيط لمحاضرة الثلاثاء.</li></ul><div class="total">الإجمالي: 2–3 ساعات موزعة بدون ضغط</div></div>
+      <div class="block"><h4>📝 الواجبات</h4><p>إنجاز أي واجب متراكم أولًا بأول، وعدم تركه لآخر الأسبوع.</p></div>
+      <div class="block"><h4>🌙 النوم</h4><p>نوم مبكر نسبيًا استعدادًا لمحاضرة الفيزياء صباح الثلاثاء.</p></div>
+    </section>
+    <div class="scallop scallop-monday"></div>
+
+    <!-- الثلاثاء -->
+    <section class="day day-tuesday">
+      <div class="day-head"><span class="emoji">☀️</span><h2>الثلاثاء</h2><span class="tag">PHYS100</span></div>
+      <div class="timeline">
+        <div class="tl-item lecture"><span class="tl-time">8:00 – 9:40 ص</span><div class="tl-body">📖 PHYS100 — محاضرة نظرية، الشعبة 4</div></div>
+        <div class="tl-item"><span class="tl-time">9:40 – 11:10</span><div class="tl-body">🚗 طريق الرجعة / راحة</div></div>
+        <div class="tl-item"><span class="tl-time">11:10 – 12:10</span><div class="tl-body">📚 مراجعة PHYS100 + حل مسائل بسيطة</div></div>
+        <div class="tl-item"><span class="tl-time">مساءً</span><div class="tl-body">✅ تسجيل أي نقطة غير واضحة وتجهيز مراجعة الأربعاء</div></div>
+        <div class="tl-item"><span class="tl-time">قبل النوم</span><div class="tl-body">🌙 راحة بدون ضغط</div></div>
+      </div>
+    </section>
+    <div class="scallop scallop-tuesday"></div>
+
+    <!-- الأربعاء -->
+    <section class="day day-wednesday">
+      <div class="day-head"><span class="emoji">🐚</span><h2>الأربعاء</h2><span class="tag">STAT101</span></div>
+      <div class="timeline">
+        <div class="tl-item lecture"><span class="tl-time">12:00 – 1:40 م</span><div class="tl-body">📖 STAT101 — محاضرة نظرية، الشعبة 3</div></div>
+        <div class="tl-item"><span class="tl-time">1:40 – 3:10</span><div class="tl-body">🚗 طريق الرجعة + راحة</div></div>
+        <div class="tl-item"><span class="tl-time">3:10 – 4:20</span><div class="tl-body">📚 مراجعة STAT101 + حل تمارين</div></div>
+        <div class="tl-item"><span class="tl-time">مساءً</span><div class="tl-body">🔁 مراجعة PHYS100 وIC104 حسب الحاجة</div></div>
+      </div>
+    </section>
+    <div class="scallop scallop-wednesday"></div>
+
+    <!-- الخميس -->
+    <section class="day day-thursday">
+      <div class="day-head"><span class="emoji">🌴</span><h2>الخميس</h2><span class="tag">STAT101 عملي</span></div>
+      <div class="timeline">
+        <div class="tl-item lecture"><span class="tl-time">12:00 – 1:40 م</span><div class="tl-body">🧮 STAT101 — تدريب/عملي، الشعبة 5</div></div>
+        <div class="tl-item"><span class="tl-time">1:40 – 3:10</span><div class="tl-body">🚗 طريق الرجعة + راحة</div></div>
+        <div class="tl-item"><span class="tl-time">3:10 – 4:30</span><div class="tl-body">📚 مراجعة إحصاء + حل المطلوب</div></div>
+        <div class="tl-item"><span class="tl-time">مساءً</span><div class="tl-body">🔁 ترتيب الأسبوع ومراجعة ما يحتاج تعويضًا</div></div>
+        <div class="tl-item"><span class="tl-time">قبل النوم</span><div class="tl-body">🌙 نهاية هادئة للأسبوع الدراسي</div></div>
+      </div>
+    </section>
+    <div class="scallop scallop-thursday"></div>
+
+    <!-- الجمعة -->
+    <section class="day day-friday">
+      <div class="day-head">
+        <span class="emoji">🏖️</span>
+        <h2>الجمعة</h2>
+        <span class="tag">يوم راحة</span>
+      </div>
+      <div class="block"><p>لا مذاكرة ثقيلة إطلاقًا. مراجعة خفيفة اختيارية (10–15 د) فقط إن رغبتِ. التركيز الكامل على الراحة.</p></div>
+    </section>
+    <div class="scallop scallop-friday"></div>
+
+    <!-- السبت -->
+    <section class="day day-saturday">
+      <div class="day-head">
+        <span class="emoji">🍹</span>
+        <h2>السبت</h2>
+        <span class="tag">تجهيز الأسبوع</span>
+      </div>
+      <div class="block">
+        <ul>
+          <li>مراجعة خفيفة: إحصاء، فيزياء، إنجليزي</li>
+          <li>مراجعة حاسب آلي (فقط إذا تحدد موعدها)</li>
+          <li>ترتيب الواجبات القادمة</li>
+          <li>التأكد من الاختبارات والكويزات القادمة</li>
+          <li>تجهيز خطة الأسبوع الجديد</li>
+        </ul>
+        <div class="total">الإجمالي: 1.5–2 ساعة موزعة بدون ضغط</div>
+      </div>
+    </section>
+    <div class="scallop scallop-saturday"></div>
+
+    <!-- قاعدة منع التراكم -->
+    <div class="rule-banner">
+      <h3>🔁 نظام منع التراكم</h3>
+      <div class="flow">
+        <span>المحاضرة</span> ← <span>مراجعة خلال 24 ساعة</span> ← <span>حل المطلوب</span> ← <span>تسجيل الغامض</span>
+      </div>
+      <ul>
+        <li>لا يُسمح بتراكم أكثر من يومين</li>
+        <li>كل موضوع غامض → قائمة "أسأل الدكتور/ة عنه"</li>
+        <li>فاتك يوم؟ استخدمي الأربعاء أو السبت للتعويض، ولا تُلغى الخطة</li>
+        <li>الهدف ليس الكمال، بل الاستمرارية</li>
+      </ul>
+    </div>
+
+    <div class="assess" style="margin-top:18px;">
+      <h3>📝 مواعيد الاختبارات</h3>
+      <table>
+        <tr><td>IC104</td><td>12-07-1448 — 10:30 ص إلى 12:30 م</td></tr>
+        <tr><td>CS101</td><td>13-07-1448 — 8:00 ص إلى 10:00 ص</td></tr>
+        <tr><td>STAT101</td><td>21-07-1448 — 8:00 ص إلى 10:00 ص</td></tr>
+        <tr><td>PHYS100</td><td>26-07-1448 — 10:30 ص إلى 12:30 م</td></tr>
+      </table>
+    </div>
+
+    <!-- المتابعة الأسبوعية -->
+    <div class="assess">
+      <h3>📊 المتابعة الأسبوعية</h3>
+      <table>
+        <tr><td>الحضور</td><td><input type="text" placeholder="__/10"></td></tr>
+        <tr><td>مراجعة المحاضرات</td><td><input type="text" placeholder="__/10"></td></tr>
+        <tr><td>الإحصاء (STAT101)</td><td><input type="text" placeholder="__/10"></td></tr>
+        <tr><td>الفيزياء (PHYS100)</td><td><input type="text" placeholder="__/10"></td></tr>
+        <tr><td>IC104</td><td><input type="text" placeholder="__/10"></td></tr>
+        <tr><td>الحاسب (CS101)</td><td><input type="text" placeholder="__/10"></td></tr>
+        <tr><td>الواجبات</td><td><input type="text" placeholder="__/10"></td></tr>
+        <tr><td>عدم وجود تراكم</td><td><input type="text" placeholder="__/10"></td></tr>
+        <tr><td>الالتزام بالخطة</td><td><input type="text" placeholder="__/10"></td></tr>
+      </table>
+      <div class="improve">
+        أكثر شيء يحتاج تحسين الأسبوع القادم:
+        <input type="text" placeholder="اكتبي هنا...">
+      </div>
+    </div>
+
+    <!-- بداية جديدة -->
+    <div class="fresh">
+      <h3>بداية جديدة 🤍</h3>
+      <ol>
+        <li>الترم السابق انتهى، ولا أتعامل مع معدلي السابق كأنه يحدد مستواي الحالي.</li>
+        <li>لا أؤجل المحاضرات.</li>
+        <li>لا أترك مسائل الإحصاء والفيزياء إلى ليلة الاختبار.</li>
+        <li>إذا لم أفهم شيئًا أسأل عنه مبكرًا.</li>
+        <li>لا أسمح بتراكم أكثر من يومين.</li>
+        <li>أراجع قبل الاختبار بوقت كافٍ.</li>
+        <li>أوازن بين الدراسة والراحة.</li>
+        <li>لا أحتاج إلى الكمال؛ أحتاج إلى الاستمرارية.</li>
+        <li>إذا خرب يوم، لا أخرب الأسبوع كاملًا.</li>
+        <li>هدفي أن أنهي الترم وأنا فخورة بالتغيير الذي سويته.</li>
+      </ol>
+    </div>
+
+    <p class="footnote">🌊 عند تحديد موعد CS101، يُضاف في يومه ووقته فقط، ويُعاد توزيع وقت المذاكرة حوله دون المساس ببقية الأسبوع.</p>
+
+  </div>
+
+<script>
+(function(){
+  // مزامنة المنظم مع يوم الأسبوع الحالي تلقائيًا
+  var dayMap = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+
+  function openToday(){
+    var today = dayMap[new Date().getDay()];
+    var sections = document.querySelectorAll('section.day');
+    sections.forEach(function(s){ s.classList.remove('today'); });
+
+    var section = document.querySelector('.day-' + today);
+    if(!section) return;
+
+    section.classList.add('today');
+
+    // يفتح على قسم اليوم تلقائيًا عند تشغيل الملف
+    setTimeout(function(){
+      section.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 250);
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', openToday);
+  } else {
+    openToday();
+  }
+
+  // إذا بقي الملف مفتوحًا وتغيّر اليوم بعد منتصف الليل، يتزامن تلقائيًا
+  setInterval(openToday, 60000);
+})();
+</script>
+</body>
+</html>
